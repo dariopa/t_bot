@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 
 
-data = yf.download(tickers='DOT1-USD', period='1d', interval='1m')
+data = yf.download(tickers='DOGE-USD', period='2d', interval='1m')
 
 value =data['Open']
 plt.plot(value)
