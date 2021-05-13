@@ -8,14 +8,17 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 
 
-data = yf.download(tickers='DOGE-USD', period='2d', interval='1m')
+coin = ['DOGE-USD']
+
+data = yf.download(tickers=coin, period='2d', interval='1m')
 
 value =data['Open']
 plt.plot(value)
 plt.show()
 # Write code to csv file
 df=pd.DataFrame(value)
-df.to_csv('test.csv',index=False, header=True)
+
+df.to_csv('t.csv',index=True, header=True)
 
 
 
