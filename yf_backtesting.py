@@ -17,15 +17,12 @@ def interval_60_days(coin_code, start, end, interval):
 
     return df
 
-def vol(coin_code, df, tr):
+def volatility(coin_code, df, tr):
     price = df['Price']
     window = int(round(tr*60,0)/2)
     norm_std_var = price.rolling(window=window).std()/price.rolling(window=window).mean()
-    norm_std_var = pd.DataFrame(norm_std_var)
-    # norm_std_var = norm_std_var.rename(columns={'':'st std var'})
-    df.append(norm_std_var)
-    print(df)
-    return df
+    df_var = pd.DataFrame(norm_std_var)
+    return df_var
 
 
 
@@ -35,7 +32,7 @@ coin = ['DOGE-USD']#, 'DOT1-USD']
 
 # params to extract data
 end = dt.datetime.now()
-start = end - dt.timedelta(days=60)
+start = end - dt.timedelta(days=1)
 interval = '2m'
 
 # params to calculate volatility
@@ -46,8 +43,19 @@ tr_lt_vol = 168 # timerange for long-term volatility in hours
 
 for coin_code in coin:
     df = interval_60_days(coin_code, start, end, interval)
-    vol(coin_code, df, tr_st_vol)
-    # df.to_csv((coin_code + '.csv'), index=True, header=True)
+
+    df_var = volatility(coin_code, df, tr_st_vol)
+    df_var = df_var.rename(columns={'Price':'Volatility'})
+    df = df.join(df_var)
+
+    #plot volatility and price
+    fig, (ax1, ax2) = plt.subplots(2, sharex=True)
+    ax1.plot(df['Price'])
+    ax2.plot(df['Volatility'])
+    plt.show()
+
+
+    df.to_csv((coin_code + '.csv'), index=True, header=True)
 
 
 
