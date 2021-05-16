@@ -103,7 +103,7 @@ while(True):
         # ax2.plot(df['Derivative [dp/dt]'])
         # plt.show()
 
-        df.to_csv((coin_code + '.csv'), index=True, header=True)
+        # df.to_csv((coin_code + '.csv'), index=True, header=True)
     
     time.sleep(interval*60) # in seconds
 
