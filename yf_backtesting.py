@@ -1,12 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
 import datetime as dt
 import time
 import math
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, Button
+# from matplotlib.widgets import Slider, Button
 import smtplib
 from email.mime.text import MIMEText
 
