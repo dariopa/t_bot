@@ -51,7 +51,7 @@ coin = ['DOGE-USD', 'DOT1-USD', 'XRP-USD', 'BTC-USD', 'ETH-USD', 'ADA-USD', 'LTC
 
 # Sell & Buy Parameters
 rent = 0.015
-der_thresh = -5
+der_thresh = 1000
 
 # params to extract data
 end = dt.datetime.now()
