@@ -44,6 +44,8 @@ def mail_notification(coin_code, sender, receiver, message):
         server.login(sender, 'Hasi4589')
         server.sendmail(from_addr=sender, to_addrs=receiver, msg=msg.as_string())
         server.quit()
+    
+    print(str(coin_code), ': successfully sent email!')
 
 #=====================================================================================#
 coin = ['DOGE-USD', 'DOT1-USD', 'XRP-USD', 'BTC-USD', 'ETH-USD', 'ADA-USD', 'LTC-USD']
@@ -51,11 +53,11 @@ coin = ['DOGE-USD', 'DOT1-USD', 'XRP-USD', 'BTC-USD', 'ETH-USD', 'ADA-USD', 'LTC
 
 # Sell & Buy Parameters
 rent = 0.015
-der_thresh = -5
+der_thresh = -7
 
 # params to extract data
 end = dt.datetime.now()
-start = end - dt.timedelta(days=0.5)
+start = end - dt.timedelta(days=0.05)
 interval = 1 # minutes
 
 # params to calculate volatility
@@ -85,12 +87,11 @@ while(True):
 
         # Send Mail notifications
         latest_derivative = df['Derivative [dp/dt]'].iloc[-1]
-        if latest_derivative <=der_thresh:
+        print(latest_derivative)
+        if latest_derivative <= der_thresh:
             sell_price = df['Price'].iloc[-1]*(1+rent)
             msg = msg_thresh_derivative + 'Buy at:' + str(df['Price'].iloc[-1]) + '\nSell at: ' + str(sell_price) 
             mail_notification(coin_code, sender, receiver, msg)
-
-        print(coin_code)
 
 
         # Plot volatility and price
