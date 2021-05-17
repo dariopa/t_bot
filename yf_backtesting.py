@@ -90,6 +90,8 @@ while(True):
             msg = msg_thresh_derivative + 'Buy at:' + str(df['Price'].iloc[-1]) + '\nSell at: ' + str(sell_price) 
             mail_notification(coin_code, sender, receiver, msg)
 
+        print(coin_code)
+
 
         # Plot volatility and price
         # fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
