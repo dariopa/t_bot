@@ -56,10 +56,8 @@ rent = 0.015
 der_thresh = -7
 
 # params to extract data
-end = dt.datetime.now()
-print(end)
-start = end - dt.timedelta(days=0.05)
 interval = 1 # minutes
+backtesting_days = 0.05
 
 # params to calculate volatility
 tr_vol = 0.5 # timerange for volatility in hours
@@ -71,8 +69,10 @@ receiver = 'darios.tbot.notifier@gmail.com'
 msg_thresh_derivative = 'Lower derivative threshold has been reached! \n'
 
 while(True):
+    end = dt.datetime.now()
+    print(end)
+    start = end - dt.timedelta(days=backtesting_days)
     for coin_code in coin:
-        print(end)
         # Extract price from yahoo finance
         df = data_extractor(coin_code, start, end, interval)
 
@@ -89,7 +89,7 @@ while(True):
 
         # Send Mail notifications
         latest_derivative = df['Derivative [dp/dt]'].iloc[-1]
-        print(latest_derivative)
+        print(coin_code, ':\nLatest Derivative: ', round(latest_derivative,5), '\nLatest Price: ', round(df['Price'].iloc[-1],5) )
         if latest_derivative <= der_thresh:
             sell_price = df['Price'].iloc[-1]*(1+rent)
             msg = msg_thresh_derivative + 'Buy at:' + str(df['Price'].iloc[-1]) + '\nSell at: ' + str(sell_price) 
