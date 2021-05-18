@@ -57,6 +57,7 @@ der_thresh = -7
 
 # params to extract data
 end = dt.datetime.now()
+print(end)
 start = end - dt.timedelta(days=0.05)
 interval = 1 # minutes
 
@@ -71,6 +72,7 @@ msg_thresh_derivative = 'Lower derivative threshold has been reached! \n'
 
 while(True):
     for coin_code in coin:
+        print(end)
         # Extract price from yahoo finance
         df = data_extractor(coin_code, start, end, interval)
 
